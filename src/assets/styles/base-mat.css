@@ -1,0 +1,23 @@
+/* utilities - buttons */
+button[mat-button] {
+    min-width: unset !important;    
+}
+
+button[mat-raised-button] {
+    background: rgba(0, 0, 0, 0);
+}
+
+button[mat-button].btn-icon {
+    color: var(--btn-color) !important;    
+}
+
+button[mat-button].btn-icon-red {
+    color: var(--btn-color-red) !important;        
+}
+
+button[mat-button].btn-submit { background-color: var(--bg-col-btn-submit); }
+button[mat-button].btn-submit .mdc-button__label { color: var(--text-btn-color-1);}
+
+button[mat-button].btn-cancel { background-color: var(--bg-col-btn-cancel); }
+button[mat-button].btn-cancel .mdc-button__label { color: var(--text-btn-color-1);}
+

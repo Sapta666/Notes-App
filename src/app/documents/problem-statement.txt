@@ -1,0 +1,88 @@
+Problem Statement: Notepad Application in Angular
+Project Overview
+Develop a Notepad application using Angular that allows users to create, edit, save, and manage text notes. 
+The application should provide a simple and intuitive interface for text editing with basic formatting options.
+
+Functional Requirements
+User Interface:
+
+Create a clean and responsive user interface using Angular Material or a similar UI library.
+Provide a text area for writing and editing notes.
+Implement a list view to display all saved notes with titles and timestamps.
+Allow users to select and view a specific note from the list.
+Note Management:
+
+Enable users to create a new note with a title and body.
+Allow users to edit the content of existing notes.
+Provide functionality to save notes to local storage or a backend server.
+Implement a delete functionality to remove notes.
+Text Formatting:
+
+Add basic text formatting options such as bold, italic, underline, and bullet points.
+Allow users to apply formatting to selected text within the note.
+Search and Filter:
+
+Implement a search feature to allow users to find notes by title or content.
+Provide filtering options to view notes based on creation date or modification date.
+Auto-Save and Version Control:
+
+Implement an auto-save feature to periodically save the note content.
+Allow users to view and revert to previous versions of a note.
+User Authentication:
+
+Implement user authentication to enable multiple users to create and manage their own notes.
+Allow users to register, log in, and log out.
+Technical Requirements
+Angular Framework:
+
+Use Angular 14+ for developing the application.
+Structure the project using Angular CLI and follow best practices for Angular development.
+State Management:
+
+Use Angular services to manage the state of notes and user sessions.
+Consider using NgRx for more complex state management needs.
+Routing:
+
+Implement Angular Router to navigate between different views (e.g., note list, note editor, user authentication).
+Storage:
+
+Use local storage or IndexedDB for client-side storage of notes.
+Optionally, implement a backend server using Node.js/Express and a database like MongoDB for persistent storage.
+Testing:
+
+Write unit tests for critical components and services using Jasmine and Karma.
+Implement end-to-end tests using Protractor or Cypress.
+Deployment:
+
+Prepare the application for deployment using Angular CLI build tools.
+Deploy the application to a web server or cloud platform like Firebase, AWS, or Heroku.
+Deliverables
+Code Repository:
+
+Provide a GitHub repository with the complete source code of the application.
+Include a README file with instructions on how to set up, run, and build the application.
+Documentation:
+
+Document the project architecture, key components, and services.
+Provide user documentation on how to use the Notepad application.
+Demo:
+
+Deploy the application to a live server and provide a link to the running application.
+Timeline
+Week 1:
+
+Set up the Angular project and create the basic UI for the Notepad application.
+Implement the functionality to create and edit notes.
+Week 2:
+
+Add text formatting options and auto-save functionality.
+Implement user authentication and note management features.
+Week 3:
+
+Implement search and filter functionalities.
+Write unit and end-to-end tests.
+Week 4:
+
+Optimize the application for performance and prepare for deployment.
+Deploy the application and finalize documentation.
+By completing this project, you will gain experience in various aspects of Angular development, including state management, routing, user authentication, and testing. This project will also enhance your skills in building and deploying full-featured web applications.

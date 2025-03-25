@@ -1,0 +1,94 @@
+<!-- container -->
+<div class="l-dash-con p-5">
+
+    <div class="row h-100">
+        <div
+            [ngClass]="{'d-none px-0': breakpointActivated && currentNote?.Note_PKey}" 
+            class="col-md-4 h-100 ps-0 pe-1">
+            <!-- notes card list and header -->
+            <div class="l-notes-list-con">
+                <div class="l-notes-list-header">                    
+                    <div class="d-flex justify-content-between align-items-center" [ngClass]="{'flex-fill mb-1': breakpointActivated}">
+                        All Notes
+                        <i *ngIf="breakpointActivated"
+                            class="fa fa-plus text-success me-2 u-cursor-pointer" aria-hidden="true"
+                            (click)="onAddEditNoteClick(addEditEnum.Add)">
+                        </i>  
+                    </div>
+
+                    <input 
+                        matInput 
+                        style="max-width: 100%;"
+                        title="Search notes"
+                        placeholder="Search notes"
+                        [(ngModel)]="searchText"
+                        (input)="onSearchTextInput()">                                                       
+                </div>
+                <!-- card list container -->
+                <div class="l-notes-card-con">                    
+                    <!-- card -->
+                    <div 
+                        *ngFor="let note of notesList"                        
+                        class="m-note-card state-card-hover" 
+                        (click)="onNoteClick(note)">
+                        <!-- header -->
+                        <div class="m-note-card-title">
+                            {{note.Title?.substring(0,20)}}
+                            {{note.Title?.length > 20 ? "..." : ""}}
+                        </div>
+                        <!-- body -->
+                        <div class="m-note-card-body">
+                            {{note.Body?.substring(0,40)}}
+                            {{note.Body?.length > 20 ? "..." : ""}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            [ngClass]="{'d-none px-0':breakpointActivated && !currentNote?.Note_PKey}"  
+            class="col-md-8 h-100 ps-1 pe-0">
+            <div class="d-flex flex-column align-items-stretched h-100 l-note-section">
+                <!-- add button -->
+                <div 
+                    class="p-1 d-flex justify-content-end align-items-center border-bottom" 
+                    style="height: 51px;"
+                    [ngClass]="{'justify-content-between': currentNote?.Note_PKey?.length > 0}">
+
+                    <!-- edit and delete -->
+                    <div class="p-1 text-end" *ngIf="currentNote?.Note_PKey">
+                        <i *ngIf="breakpointActivated"
+                            class="fa fa-plus text-white me-2 border-end pe-1" aria-hidden="true"
+                            (click)="onBackClick()">
+                        </i>  
+                        <i class="fa fa-trash u-cursor-pointer text-danger me-2" aria-hidden="true"
+                            (click)="onDeleteNoteClick()">
+                        </i>                    
+                        <i class="fa fa-pencil text-info me-2 u-cursor-pointer" aria-hidden="true"
+                            (click)="onAddEditNoteClick(addEditEnum.Edit)">
+                        </i>             
+                    </div>
+
+                    <i class="fa fa-plus u-cursor-pointer text-success me-2" aria-hidden="true"
+                        (click)="onAddEditNoteClick(addEditEnum.Add)"></i>                    
+                </div>            
+
+                <!-- header -->
+                <div class="l-note-body-header" *ngIf="currentNote?.Title">
+                    {{currentNote.Title}}
+                </div>
+                <div class="l-note-body-content flex-fill h-100" *ngIf="currentNote?.Note_PKey; else defaultMsg">
+                    {{currentNote.Body}}
+                </div>
+                <ng-template #defaultMsg>
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <span class="fnt-1 text-secondary">
+                            No notes present , click + to add note...
+                        </span>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+</div>

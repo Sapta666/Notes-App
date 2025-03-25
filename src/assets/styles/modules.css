@@ -1,0 +1,74 @@
+/* dashboard header */
+.m-dash-main-header {
+    font-size: var(--fnt-size-1);
+    font-weight: bolder;
+}
+
+/* note card section */
+.m-note-card {
+    padding: 2px;
+    background-color: var(--note-card-color);
+    border-radius: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.m-note-card-title {
+    font-weight: bold;
+    font-size: var(--fnt-size-3);
+    padding: 3px 8px;
+}
+
+.m-note-card-body {
+    margin-top: 2px;
+    font-size: var(--fnt-size-4);
+    padding: 3px 8px;
+}
+
+
+
+/* utilities */
+.m-overflow-x-scroll {
+    overflow-x: scroll;
+}
+
+.m-link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* form */
+.m-form-con {
+    background-color: unset !important;
+
+    border: var(--bdr-template) !important;
+    border-radius: var(--bdr-radius) !important;
+}
+
+.m-form-con mat-card-header {
+    padding: 5px 16px;    
+}
+
+.m-form-header {
+    font-weight: var(--fnt-wt);
+    font-size: var(--fnt-size-2);    
+
+    display: flex;
+    align-items: center;
+
+    border: 0;
+    border-bottom: var(--bdr-width) var(--bdr-style) var(--bdr-color-1);   
+    border-style: var(--bdr-style);    
+}
+
+.m-form-label, .m-form-input {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    padding: 3px 5px;
+}
+.m-form-input {
+    justify-content: start;
+}
+

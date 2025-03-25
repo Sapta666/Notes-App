@@ -1,0 +1,88 @@
+/* dashboard container */
+.l-dash-con {
+    height: 100%;    
+}
+
+
+/* notes */
+.l-notes-list-con, .l-note-section {
+    border: var(--bdr-template);
+    border-radius: var(--bdr-radius);
+    height: 100%;
+}
+
+.l-notes-list-con { 
+    display: flex; 
+    flex-flow: column;
+}
+
+.l-notes-card-con {
+    padding: 5px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.l-notes-list-header {
+    display: flex;    
+    justify-content: space-between;
+    flex-wrap: wrap;
+    
+    font-size: var(--fnt-size-2);
+    padding: 10px;
+    border-bottom: var(--bdr-template);
+}
+
+.l-note-body-header {
+    font-size: var(--fnt-size-1);
+    padding: 5px;
+}
+
+.l-note-body-content {
+    font-size: var(--fnt-size-2);
+    overflow: auto;
+    padding: 5px;
+}
+
+/* ----------------------------------------------- */
+
+.l-notes-con {
+    border: var(--bdr-template);
+    border-radius: var(--bdr-radius);
+    width: 75%;
+    margin: auto;
+}
+
+.l-notes-con.l-notes {
+    width: 100%;
+}
+
+.l-notes-con mat-card {
+    background-color: rgba(0, 0, 255, 0.2);    
+}
+
+.l-notes-con mat-card-content {
+    padding: 0 8px;    
+}
+
+.l-note-header {
+    padding: 8px 8px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.l-notes-con .mat-mdc-card-content:last-child {
+    padding-bottom: 8px;
+    
+}
+
+
+/* add edit note */
+.l-add-edit-note-con {
+    position: absolute;
+
+    top: 25%;    
+    left: 50%;
+    transform: translateX(-50%);    
+
+    width: 60%;
+}

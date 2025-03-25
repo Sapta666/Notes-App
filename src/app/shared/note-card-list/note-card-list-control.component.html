@@ -1,0 +1,48 @@
+<!-- container -->
+<div class="l-notes-con">
+    <!-- header -->
+    <div class="m-notes-con-header">
+        Notes
+        <button
+            mat-button
+            title="Add Notes"
+            class="fa fa-plus btn-icon"
+            (click)="onAddNoteClick()">
+        </button>
+    </div> 
+    <!-- list container -->     
+    <div class="m-overflow-x-scroll p-1 pb-0" [ngStyle]="{'height': (pTotalHeight + 'px')}">                
+        <div class="text-center headline-1" *ngIf="notesList?.length == 0">
+            You don't have any notes , 
+            <span
+                title="Add Notes"
+                class="m-link fw-bold"
+                (click)="onAddNoteClick()">                                
+                Click Here To Add Notes!
+            </span>
+        </div>
+        <div *ngFor="let dataItem of notesList">
+            <ng-container *ngTemplateOutlet="noteTemplate; context: {$implicit: dataItem}">                
+            </ng-container>
+        </div>
+        
+    </div>
+</div>
+
+<ng-template #noteTemplate let-dataItem>
+    <!-- list container -->
+    <mat-card class="l-notes-con l-notes mb-1">
+        <div class="l-note-header">
+          <mat-card-title>
+            {{dataItem.Title}}
+        </mat-card-title>
+        <mat-card-actions [align]="'end'">
+            <button mat-button title="Delete Note" class="fa fa-trash btn-icon-red" (click)="onDeleteNoteClick(dataItem)"></button>            
+            <button mat-button title="Edit Note" class="fa fa-pencil btn-icon" (click)="onEditNoteClick(dataItem)"></button>
+          </mat-card-actions>
+        </div>        
+        <mat-card-content>
+            {{dataItem.Body}}
+        </mat-card-content>
+      </mat-card>
+</ng-template>

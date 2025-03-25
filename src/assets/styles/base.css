@@ -1,0 +1,64 @@
+@import "base-mat.css";
+
+:root {
+    /* fonts */
+    --fnt-family: Arial, Helvetica, sans-serif;
+    --text-color: white;    
+    --text-input-color: black;
+    --text-btn-color-1: white;
+    --fnt-size-1: 40px;
+    --fnt-size-2: 20px;
+    --fnt-size-3: 16px;
+    --fnt-size-4: 12px;
+    --fnt-wt: bold;
+
+    /* buttons */
+    --btn-color: blue;
+    --btn-color-red: red;
+    --btn-bg-color: #a0bdff;
+
+    /* border */
+    --bdr-color-1: rgb(255, 255, 255);
+    --bdr-width: 1px;
+    --bdr-radius-sm: 1px;
+    --bdr-radius: 5px;
+    --bdr-style: solid;
+    --bdr-template: var(--bdr-width) var(--bdr-style) var(--bdr-color-1);
+
+    /* colors */
+    --bg-col: #1e262f;
+    --note-card-color: #414951;
+    --bg-col-btn-submit: rgb(0, 95, 0);
+    --bg-col-btn-cancel: rgb(143, 0, 0);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;    
+    
+    font-family: var(--fnt-family);
+    color: var(--text-color);
+    font-size: var(--fnt-size-2); 
+}
+
+.bg-col {
+    background-color: var(--bg-col);
+}
+
+input, textarea {
+    border-color: unset;
+    color: var(--text-input-color);
+    border: 0;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+
+.u-cursor-pointer {
+    cursor: pointer;
+}
+
+.fnt-1 {
+    font-size: var(--fnt-size-2);
+}

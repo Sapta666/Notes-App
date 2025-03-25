@@ -1,0 +1,68 @@
+<div class="h-100">
+    <mat-card class="l-add-edit-note-con m-form-con">
+        <mat-card-header class="m-form-header">
+            {{addEdit == addEditEnum.Add ? "Add" : "Update"}} Note
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="formGroup">
+                <div class="row">
+                    <div class="col-md-4 m-form-label" [ngClass]="{
+                        'justify-content-start': breakpointActivated
+                        }">
+                        Title <span class="text-danger">*</span>
+                    </div>
+                    <div class="col-md-8 m-form-input">
+                        <div class="flex-fill w-100">
+                            <input matInput formControlName="Title" class="w-100">
+                            <div *ngIf="(formGroup.controls['Title'].touched || formGroup.controls['Title'].dirty) && formGroup.controls['Title'].invalid">
+                                <div *ngIf="formGroup.controls['Title'].errors['required']" class="text-danger">
+                                    Title is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 m-form-label" [ngClass]="{'justify-content-start': breakpointActivated}">
+                        Body <span class="text-danger">*</span>
+                    </div>
+                    <div class="col-md-8 m-form-input">
+                        <div class="flex-fill w-100">
+                            <textarea
+                                matInput
+                                formControlName="Body"
+                                rows="5"
+                                class="w-100">
+                            </textarea>
+                            <div *ngIf="(formGroup.controls['Body'].touched || formGroup.controls['Body'].dirty) && formGroup.controls['Body'].invalid">
+                                <div *ngIf="formGroup.controls['Body'].errors['required']" class="text-danger">
+                                    Body is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row border-top">
+                    <div class="col-md-12 p-1 d-flex justify-content-end align-items-center">
+                        <button 
+                            mat-button
+                            type="button"
+                            title="Cancel"
+                            class="btn-cancel me-1"
+                            (click)="onCancelClick()">
+                            Cancel
+                        </button>
+                        <button 
+                            mat-button
+                            type="button"
+                            [title]="addEdit"
+                            class="btn-submit"
+                            (click)="onSubmitClick()">
+                            {{addEdit == addEditEnum.Add ? "Add" : "Update"}}
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
