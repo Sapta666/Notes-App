@@ -1,15 +1,15 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # Compiled output
-/dist
-/tmp
-/out-tsc
-/bazel-out
+/Angular_App/dist
+/Angular_App/tmp
+/Angular_App/out-tsc
+/Angular_App/bazel-out
 
 # Node
-/node_modules
-npm-debug.log
-yarn-error.log
+/Angular_App/node_modules
+/Angular_App/npm-debug.log
+/Angular_App/yarn-error.log
 
 # IDEs and editors
 .idea/
@@ -29,7 +29,8 @@ yarn-error.log
 .history/*
 
 # Miscellaneous
-/.angular/cache
+/Angular_App/.angular/cache
+/Angular_App/.angular
 .sass-cache/
 /connect.lock
 /coverage
@@ -40,3 +41,4 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
