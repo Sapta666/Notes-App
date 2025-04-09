@@ -13,3 +13,19 @@
 
 -- ============================================================================
 
+-- For granting notesadmin user necessary priviledges , must be executed by sys
+
+-- alter session set container = notes_app;
+
+-- grant dba,connect,resource to notesadmin;
+
+-- ============================================================================
+
+select * from user_tables;
+
+select * from all_tables;
+
+select * from dual;
+
+create table abc(
+    id number);
