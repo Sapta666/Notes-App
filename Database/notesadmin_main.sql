@@ -29,3 +29,36 @@ select * from dual;
 
 create table abc(
     id number);
+    
+-- for testing purpose
+    
+insert into users (user_pkey,username,password,is_admin)
+    values ('pkey1','user101','pass101','Y');
+    
+delete from users where user_pkey = 'pkey1';
+
+select * from users;
+
+declare
+    notes_pkey VARCHAR2(32) := '';
+begin
+    sp_insert_into_notes(
+    notes_pkey,
+    'pkey1',
+    'title test',
+    'body test',
+    null,
+    null,
+    null,
+    null );
+end;
+
+select * from users;
+select * from user_notes;
+select * from notes;
+
+execute sp_delete_from_notes('note102');
+execute sp_delete_from_users('pkey1');
+
+commit;
+
