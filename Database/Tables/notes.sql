@@ -14,3 +14,5 @@ create table notes(
 
 
 select * from notes;
+
+commit;
