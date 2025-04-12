@@ -19,16 +19,13 @@ begin
    -- table notes
    insert into notes
    values ( gen_notes_pkey,                     
+            p_USER_PKEY,
             p_TITLE,
             p_BODY,
             p_CREATE_NUMDATE,
             p_CREATE_NUMTIME,
             p_LASTMOD_NUMDATE,
             p_LASTMOD_DECTIME
-        );
-            
-   -- inserting into table user_notes , 
-   -- to assign the note to the respective user
-   insert into user_notes values(p_USER_PKEY,gen_notes_pkey);     
+        );   
 end;
 /

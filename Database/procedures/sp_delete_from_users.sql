@@ -4,25 +4,18 @@ create or replace procedure sp_delete_from_users(
 )
 is
     notes_pkeys TYPE_NOTES_PKEYS;
-begin    
-        
-    select notes_pkey bulk collect into notes_pkeys from user_notes 
-        where user_pkey = p_USER_PKEY;
-
+begin            
     -- first deleting the row from user_notes table
 --    delete from user_notes 
 --        where notes_pkey 
 --        in( select notes_pkey 
 --            from user_notes
---            where user_pkey = p_USER_PKEY);    
-            
-    -- first deleting the row from user_notes table        
-    delete from user_notes where notes_pkey in(select column_value from table(notes_pkeys));
+--            where user_pkey = p_USER_PKEY);                
 
-    -- second deleting the note from the main notes table
-    delete from notes where notes_pkey in(select column_value from table(notes_pkeys)) ;
+    -- first deleting the note from the main notes table
+    delete from notes where user_pkey = p_USER_PKEY;
     
-    -- third , deleting the user after all the related from all respective
+    -- second, deleting the user after all the related from all respective
     -- tables have been removed
     delete from users where user_pkey = p_USER_PKEY;
 end;
