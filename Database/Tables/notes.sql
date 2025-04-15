@@ -16,3 +16,5 @@ create table notes(
 select * from notes;
 
 commit;
+
+desc notes;

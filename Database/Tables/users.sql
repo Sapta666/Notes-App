@@ -6,10 +6,6 @@ create table users (
     last_name varchar(32),
     create_numdt number,
     create_dectime number,
-    is_admin char check(is_admin = 'Y' or is_admin = 'N'),
+    is_admin varchar2(1) check(is_admin = 'Y' or is_admin = 'N'),
     CONSTRAINT pk_user_Pkey primary key(user_PKey)
 );
-
-
-    
-

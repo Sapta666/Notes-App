@@ -1,7 +1,7 @@
 --  DB CREATION SQL
 
 -- create pluggable database notes_app 
--- admin user notesadmin identified by notesadmin_notes_app
+-- admin user notesadmin identified by notesadmin_notesapppdb
 -- FILE_NAME_CONVERT=('/pdbseed/'
 --                    ,'/notes_app_pdb/');
                     
@@ -62,3 +62,22 @@ execute sp_delete_from_users('pkey1');
 
 commit;
 
+
+-- ==========================================================================
+
+
+alter table users modify is_admin varchar2(1) check(is_admin = 'Y' or is_admin = 'N');
+
+alter table users modify  password varchar(64);       
+
+select * from user_objects where object_type = 'INDEX';
+desc user_objects;
+
+commit;
+
+select * from users;
+
+insert into users values('usertemp','bastet666','bastet366','fname','lname',0,0,'N');
+
+delete from users where user_pkey = 'user109';
+update users set username = 'bastet666' where user_pkey = 'user110';
