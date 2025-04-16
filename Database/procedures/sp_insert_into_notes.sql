@@ -29,3 +29,5 @@ begin
         );   
 end;
 /
+
+show error procedure sp_insert_into_notes;
