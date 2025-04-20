@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NavigationPageEnum } from 'src/app/common/navigation-page.enum';
-import { getAddEditNoteInstance } from 'src/app/models/AddEditNoteDto.model';
-import { getLoginInstance } from 'src/app/models/LoginDto.model';
-import { getUserSignUpInstance } from 'src/app/models/UserSignUpDto.model';
+import { LoginDto } from 'src/app/models/function-model/auth/LoginDto.model';
+import { getUserSignUpInstance, UserSignUpDto } from 'src/app/models/function-model/auth/UserSignUpDto.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +17,7 @@ export class LoginComponent implements AfterViewInit {
   private _note_PKey: string = "";
 
   protected formGroup: FormGroup;
+  protected actionType: "LOGIN" | "SIGNUP" = "LOGIN";
 
   protected listHeight: number = 100;
   protected breakpointActivated: boolean = false;
@@ -27,7 +28,7 @@ export class LoginComponent implements AfterViewInit {
 
   constructor(
     private _fb: FormBuilder,
-    private _notesService: NotesService,
+    private _authService: AuthService,
     private _router: Router,
   ) {
     this.initializeFormGroup();
@@ -92,10 +93,21 @@ export class LoginComponent implements AfterViewInit {
 
   protected onSubmitClick(): void {
     if (this.validateData()) {
-      if (this.addEdit == AddEditEnum.Add)
-        this.addNote();
-      else
-        this.editNote();
+      if (this.actionType == "LOGIN") {
+        let login: LoginDto = {
+          Username: this.formGroup.controls["Username"].value,
+          Password: this.formGroup.controls["Password"].value,
+        }
+        this.loginUser(login);
+      } else {
+        let userSignUp: UserSignUpDto = {
+          Username: this.formGroup.controls["Username"].value,
+          Password: this.formGroup.controls["Password"].value,
+          FirstName: this.formGroup.controls["FirstName"].value,
+          LastName: this.formGroup.controls["LastName"].value,
+        };
+        this.signUp(userSignUp);
+      }
 
         this.navigateToDashboard();
     }
@@ -105,22 +117,26 @@ export class LoginComponent implements AfterViewInit {
 
   //#region Service Functions
 
-  private getNoteInfo(): void {
-    let noteInfo: NotesDto = this._notesService
-      .getNoteInfo(this._note_PKey);
+  private loginUser(login: LoginDto): void {
+    this._authService
+      .login(login)
+      .subscribe(response => {
+        if(response?.Status?.toUpperCase() == "SUCCESS") {
 
-    if (noteInfo)
-      this.initializeFormGroupValue(noteInfo);
+        } else  
+          alert("Login failed! Invalid username or password.");
+      });
   }
 
-  private addNote(): void {
-    this._notesService
-      .addNote(this.formGroup.getRawValue());
-  }
+  private signUp(userSignUp: UserSignUpDto): void {
+    this._authService
+      .signUp(userSignUp)
+      .subscribe(response => {
+        if(response?.Status?.toUpperCase() == "SUCCESS") {
 
-  private editNote(): void {
-    this._notesService
-      .editNote(this.formGroup.getRawValue());      
+        } else  
+          alert("User signup failed! "+response?.Message);
+      });
   }
 
   //#endregion

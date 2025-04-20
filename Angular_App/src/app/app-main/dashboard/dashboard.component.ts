@@ -3,7 +3,7 @@ import { AddEditEnum } from '../../common/add-edit.enum';
 import { Router } from '@angular/router';
 import { NavigationPageEnum } from '../../common/navigation-page.enum';
 import { NotesService } from '../../services/notes.service';
-import { getNotesInstance, NotesDto } from '../../models/NotesDto.model';
+import { getNotesInstance, NotesDto } from '../../models/view-model/notes/NotesDto.model';
 
 @Component({
   selector: 'app-dashboard',

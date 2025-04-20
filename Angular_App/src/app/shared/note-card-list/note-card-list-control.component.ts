@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { NotesService } from '../../services/notes.service';
-import { NotesDto } from '../../models/NotesDto.model';
+import { NotesDto } from '../../models/view-model/notes/NotesDto.model';
 import { AddEditEnum } from '../../common/add-edit.enum';
 
 @Component({

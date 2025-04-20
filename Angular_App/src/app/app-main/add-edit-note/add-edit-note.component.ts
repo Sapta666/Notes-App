@@ -2,9 +2,9 @@ import { AfterViewInit, Component, HostListener } from '@angular/core';
 import { AddEditEnum } from '../../common/add-edit.enum';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { getAddEditNoteInstance } from '../../models/AddEditNoteDto.model';
+import { getAddEditNoteInstance } from '../../models/function-model/notes/AddEditNoteDto.model';
 import { NotesService } from '../../services/notes.service';
-import { NotesDto } from '../../models/NotesDto.model';
+import { NotesDto } from '../../models/view-model/notes/NotesDto.model';
 import { NavigationPageEnum } from '../../common/navigation-page.enum';
 
 @Component({

@@ -12,6 +12,8 @@ import {MatCardModule} from '@angular/material/card';
 import { MATERIAL_PRAC_SHARED } from './shared';
 import { APP_MAIN } from './app-main';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BaseUrlInterceptor } from './common/interceptors/base-url.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatBadgeModule,
     MatCardModule,
   ],
-  providers: [],
+  providers: [
+    {
+        provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from "@angular/core";
-import { NotesDto } from "../models/NotesDto.model";
-import { AddEditNoteDto } from "../models/AddEditNoteDto.model";
+import { NotesDto } from "../models/view-model/notes/NotesDto.model";
+import { AddEditNoteDto } from "../models/function-model/notes/AddEditNoteDto.model";
 
 @Injectable({
     providedIn: 'root'
