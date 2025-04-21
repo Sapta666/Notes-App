@@ -4,7 +4,7 @@ import { NavigationPageEnum } from './common/navigation-page.enum';
 import { APP_MAIN_ROUTING } from './app-main/routing';
 
 const routes: Routes = [
-  { path: "", pathMatch: "full", redirectTo: NavigationPageEnum.Dashboard },  
+  { path: "", pathMatch: "full", redirectTo: NavigationPageEnum.Login },  
   
 
   ...APP_MAIN_ROUTING,

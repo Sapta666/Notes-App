@@ -27,7 +27,8 @@
 
     /* colors */
     --bg-col: #1e262f;
-    --note-card-color: #414951;
+    --note-card-color: #414951;    
+    --bg-col-btn-login-signup: #59626d;
     --bg-col-btn-submit: rgb(0, 95, 0);
     --bg-col-btn-cancel: rgb(143, 0, 0);
 }
@@ -59,6 +60,7 @@ input, textarea {
     cursor: pointer;
 }
 
-.fnt-1 {
-    font-size: var(--fnt-size-2);
-}
+.fnt-1 { font-size: var(--fnt-size-1); }
+.fnt-2 { font-size: var(--fnt-size-2); }
+.fnt-3 { font-size: var(--fnt-size-3); }
+.fnt-4 { font-size: var(--fnt-size-4); }

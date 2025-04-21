@@ -2,6 +2,8 @@ import { AfterViewInit, Component, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavigationPageEnum } from 'src/app/common/navigation-page.enum';
+import { AppSettingsService } from 'src/app/common/services/app-settings.service';
+import { CryptoUtils } from 'src/app/common/utils/crypto-utils';
 import { LoginDto } from 'src/app/models/function-model/auth/LoginDto.model';
 import { getUserSignUpInstance, UserSignUpDto } from 'src/app/models/function-model/auth/UserSignUpDto.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -28,8 +30,8 @@ export class LoginComponent implements AfterViewInit {
 
   constructor(
     private _fb: FormBuilder,
-    private _authService: AuthService,
-    private _router: Router,
+    private _appSettingsService: AppSettingsService,
+    private _authService: AuthService,    
   ) {
     this.initializeFormGroup();
   }
@@ -58,18 +60,25 @@ export class LoginComponent implements AfterViewInit {
     this.formGroup.controls["Password"].setValidators([Validators.required]);
   }
 
-  private navigateToDashboard(): void {
-    this._router.navigate([`${NavigationPageEnum.Dashboard}`]);
-  } 
-
   private validateData(): boolean {
     let errorMessage: string = "";
     try {
       this.formGroup.markAllAsTouched();  
-      if (this.formGroup.controls["Title"].value.trim() == "")
-        errorMessage += "\n Title is required."
-      if (this.formGroup.controls["Body"].value.trim() == "")
+
+      // extra validation for user signup
+      if(this.actionType == 'SIGNUP') {
+        if (this.formGroup.controls["FirstName"].value.trim() == "")
+          errorMessage += "\n First name is required."
+        if (this.formGroup.controls["LastName"].value.trim() == "")
+          errorMessage += "\n Last name is required."
+      }
+      
+      // mandatory validation needed for both login and sign up
+      if (this.formGroup.controls["Username"].value.trim() == "")
+        errorMessage += "\n Username is required."
+      if (this.formGroup.controls["Password"].value.trim() == "")
         errorMessage += "\n Note body is required."
+
       if (!this.formGroup.valid || errorMessage.length > 0) {
         alert("Form Validation failed. " + errorMessage);
         return false;
@@ -83,34 +92,39 @@ export class LoginComponent implements AfterViewInit {
     return true;
   }
 
-  //#endregion    
+  private navigateToDashboard(): void {
 
-  //#region Component Functions
-
-  protected onCancelClick(): void {
-    this.navigateToDashboard();
   }
 
-  protected onSubmitClick(): void {
-    if (this.validateData()) {
+  //#endregion    
+
+  //#region Component Functions  
+
+  protected onSubmitClick(): void {    
+    if (this.validateData()) {      
       if (this.actionType == "LOGIN") {
         let login: LoginDto = {
-          Username: this.formGroup.controls["Username"].value,
-          Password: this.formGroup.controls["Password"].value,
+          Username: CryptoUtils.encodeText(this.formGroup.controls["Username"].value),
+          Password: CryptoUtils.encodeText(this.formGroup.controls["Password"].value),
         }
         this.loginUser(login);
       } else {
         let userSignUp: UserSignUpDto = {
-          Username: this.formGroup.controls["Username"].value,
-          Password: this.formGroup.controls["Password"].value,
-          FirstName: this.formGroup.controls["FirstName"].value,
-          LastName: this.formGroup.controls["LastName"].value,
+          Username: CryptoUtils.encodeText(this.formGroup.controls["Username"].value),
+          Password: CryptoUtils.encodeText(this.formGroup.controls["Password"].value),
+          FirstName: CryptoUtils.encodeText(this.formGroup.controls["FirstName"].value),
+          LastName: CryptoUtils.encodeText(this.formGroup.controls["LastName"].value),
         };
         this.signUp(userSignUp);
       }
-
-        this.navigateToDashboard();
     }
+  }
+
+  protected onChangeActionTypeClick(): void {
+    if(this.actionType == "LOGIN")
+      this.actionType = "SIGNUP";
+    else  
+      this.actionType = "LOGIN";
   }
 
   //#endregion
@@ -122,7 +136,8 @@ export class LoginComponent implements AfterViewInit {
       .login(login)
       .subscribe(response => {
         if(response?.Status?.toUpperCase() == "SUCCESS") {
-
+          this._appSettingsService.setAppSettings(response.Data);
+          this.navigateToDashboard();
         } else  
           alert("Login failed! Invalid username or password.");
       });
@@ -133,11 +148,12 @@ export class LoginComponent implements AfterViewInit {
       .signUp(userSignUp)
       .subscribe(response => {
         if(response?.Status?.toUpperCase() == "SUCCESS") {
-
+          this._appSettingsService.setAppSettings(response.Data);
+          this.navigateToDashboard();
         } else  
           alert("User signup failed! "+response?.Message);
       });
-  }
+  }  
 
   //#endregion
 

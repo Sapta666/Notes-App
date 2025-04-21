@@ -12,8 +12,9 @@ import {MatCardModule} from '@angular/material/card';
 import { MATERIAL_PRAC_SHARED } from './shared';
 import { APP_MAIN } from './app-main';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BaseUrlInterceptor } from './common/interceptors/base-url.interceptor';
+import { ErrorHandlingInterceptor } from './common/interceptors/error-handling.interceptor';
 
 @NgModule({
   declarations: [
@@ -25,9 +26,11 @@ import { BaseUrlInterceptor } from './common/interceptors/base-url.interceptor';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,   
     FormsModule, 
     ReactiveFormsModule,
+    HttpClientModule,
+
+    AppRoutingModule,   
 
     MatButtonModule,
     MatButtonToggleModule,
@@ -37,7 +40,10 @@ import { BaseUrlInterceptor } from './common/interceptors/base-url.interceptor';
   providers: [
     {
         provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true,
-    }
+    },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: ErrorHandlingInterceptor, multi: true,
+    }    
   ],
   bootstrap: [AppComponent]
 })
