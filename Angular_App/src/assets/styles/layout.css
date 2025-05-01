@@ -1,6 +1,6 @@
 /* dashboard container */
 .l-dash-con {
-    height: 100%;    
+    min-height: 100%;    
 }
 
 

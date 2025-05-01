@@ -22,5 +22,7 @@ button[mat-button].btn-cancel { background-color: var(--bg-col-btn-cancel); }
 button[mat-button].btn-cancel .mdc-button__label { color: var(--text-btn-color-1);}
 
 button[mat-button].btn-login { background-color: var(--bg-col-btn-login-signup); }
-button[mat-button].btn-login .mdc-button__label { color: var(--text-btn-color-1);}
+button[mat-button].btn-login .mdc-button__label { color: var(--text-btn-color-1); }
 
+button[mat-button].btn-logout { background-color: var(--bg-col-btn-cancel); }
+button[mat-button].btn-logout .mdc-button__label { color: var(--text-btn-color-1);}

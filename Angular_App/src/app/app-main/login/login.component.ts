@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NavigationPageEnum } from 'src/app/common/navigation-page.enum';
+import { NavigationPageEnum } from 'src/app/common/enums/navigation-page.enum';
 import { AppSettingsService } from 'src/app/common/services/app-settings.service';
 import { CryptoUtils } from 'src/app/common/utils/crypto-utils';
 import { LoginDto } from 'src/app/models/function-model/auth/LoginDto.model';
@@ -30,6 +30,7 @@ export class LoginComponent implements AfterViewInit {
 
   constructor(
     private _fb: FormBuilder,
+    private _router: Router,
     private _appSettingsService: AppSettingsService,
     private _authService: AuthService,    
   ) {
@@ -93,7 +94,7 @@ export class LoginComponent implements AfterViewInit {
   }
 
   private navigateToDashboard(): void {
-
+    this._router.navigate([`${NavigationPageEnum.Dashboard}`]);
   }
 
   //#endregion    

@@ -30,7 +30,7 @@
     --note-card-color: #414951;    
     --bg-col-btn-login-signup: #59626d;
     --bg-col-btn-submit: rgb(0, 95, 0);
-    --bg-col-btn-cancel: rgb(143, 0, 0);
+    --bg-col-btn-cancel: rgb(143, 0, 0);    
 }
 
 * {
@@ -64,3 +64,5 @@ input, textarea {
 .fnt-2 { font-size: var(--fnt-size-2); }
 .fnt-3 { font-size: var(--fnt-size-3); }
 .fnt-4 { font-size: var(--fnt-size-4); }
+
+.min-vh-100 { min-height: 100vh;}

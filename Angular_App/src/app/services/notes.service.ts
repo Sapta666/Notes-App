@@ -1,6 +1,10 @@
 import { Injectable, OnInit } from "@angular/core";
 import { NotesDto } from "../models/view-model/notes/NotesDto.model";
 import { AddEditNoteDto } from "../models/function-model/notes/AddEditNoteDto.model";
+import { Observable } from "rxjs";
+import { ResponseDataDto } from "../common/models/ResponseDataDto.model";
+import { HttpClient } from "@angular/common/http";
+import { BasicResponseDto } from "../common/models/BasicResponseDto.model";
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +19,9 @@ export class NotesService {
 
     //#region Page Load
 
-    constructor() {
+    constructor(
+        private _httpClient: HttpClient,
+    ) {
         this._notesList = JSON.parse(sessionStorage.getItem("Notes_Data")) ?? [];
     }
 
@@ -23,48 +29,24 @@ export class NotesService {
 
     //#region Public Functions    
 
-    public getNoteList(): NotesDto[] {
-        return this._notesList;
-    } 
-
-    public getNoteInfo(note_PKey: string): NotesDto {          
-        return this._notesList.find(item => item.Note_PKey == note_PKey);
+    public getUserNotesList(user_PKey: string): Observable<ResponseDataDto<NotesDto[]>> {
+        return this._httpClient.get<ResponseDataDto<NotesDto[]>>(`{{baseUrl}}/Notes/list/${user_PKey}`);
     }
 
-    public addNote(addEditNote: AddEditNoteDto): void {
-        let note: NotesDto = {
-            Note_PKey: (new Date()).getTime()?.toString(),
-            Title: addEditNote.Title,
-            Body: addEditNote.Body, 
-        };
-
-        this._notesList.push(note);
-
-        this.saveSessionData();
+    public getNoteInfo(notes_PKey: string): Observable<ResponseDataDto<NotesDto>> {
+        return this._httpClient.get<ResponseDataDto<NotesDto>>(`{{baseUrl}}/Notes/${notes_PKey}`);
     }
 
-    public editNote(addEditNote: AddEditNoteDto): void {
-        let note: NotesDto = {
-            Note_PKey: addEditNote.Note_PKey,
-            Title: addEditNote.Title,
-            Body: addEditNote.Body, 
-        };
-
-        let index: number = this._notesList.findIndex(item => item.Note_PKey == addEditNote.Note_PKey);
-        this._notesList[index] = {
-            ...note
-        };
+    public addNote(user_PKey: string,addEditNote: AddEditNoteDto): Observable<BasicResponseDto> {
+        return this._httpClient.post<BasicResponseDto>(`{{baseUrl}}/Notes/addNote/${user_PKey}`,addEditNote);
     }
 
-    public deleteNote(note_PKey: string): void {
-        this._notesList = this._notesList.filter(item => {
-            return item.Note_PKey != note_PKey;
-        });
+    public updateNote(note_PKey: string,addEditNote: AddEditNoteDto): Observable<BasicResponseDto> {
+        return this._httpClient.put<BasicResponseDto>(`{{baseUrl}}/Notes/updateNote/${note_PKey}`,addEditNote);
+    }
 
-        if(!this._notesList)
-            this._notesList = [];
-
-        this.saveSessionData();
+    public deleteNote(notes_PKey: string): Observable<BasicResponseDto> {
+        return this._httpClient.delete<BasicResponseDto>(`{{baseUrl}}/Notes/${notes_PKey}`);
     }
 
     public getNotesCount(): number {
@@ -76,7 +58,7 @@ export class NotesService {
     //#region Private Functions
 
     private saveSessionData(): void {
-        sessionStorage.setItem("Notes_Data",JSON.stringify(this._notesList));
+        sessionStorage.setItem("Notes_Data", JSON.stringify(this._notesList));
     }
 
     //#endregion

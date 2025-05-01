@@ -1,11 +1,14 @@
 import { AfterViewInit, Component, HostListener } from '@angular/core';
-import { AddEditEnum } from '../../common/add-edit.enum';
+import { AddEditEnum } from '../../common/enums/add-edit.enum';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { getAddEditNoteInstance } from '../../models/function-model/notes/AddEditNoteDto.model';
 import { NotesService } from '../../services/notes.service';
 import { NotesDto } from '../../models/view-model/notes/NotesDto.model';
-import { NavigationPageEnum } from '../../common/navigation-page.enum';
+import { NavigationPageEnum } from '../../common/enums/navigation-page.enum';
+import { SuccessFailedEnum } from 'src/app/common/enums/success-failed.enum';
+import { AppSettingsDto } from 'src/app/common/models/AppSettingsDto.model';
+import { AppSettingsService } from 'src/app/common/services/app-settings.service';
 
 @Component({
   selector: 'app-add-edit-note',
@@ -15,7 +18,8 @@ export class AddEditNoteComponent implements AfterViewInit {
 
   //#region Variables
 
-  private _note_PKey: string = "";
+  private _notes_PKey: string = "";
+  private _appSettings: AppSettingsDto = null;
 
   protected formGroup: FormGroup;
 
@@ -31,16 +35,18 @@ export class AddEditNoteComponent implements AfterViewInit {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _fb: FormBuilder,
+    private _appSettingsService: AppSettingsService,
     private _notesService: NotesService,
     private _router: Router,
   ) {
+    this._appSettings = this._appSettingsService.getAppSettings();
     this.initializeFormGroup();
   }
 
   ngAfterViewInit(): void {
     this._activatedRoute.params.subscribe(params => {
       this.addEdit = params["AddEdit"];
-      this._note_PKey = this._activatedRoute.snapshot.queryParams["qsNote_PKey"];
+      this._notes_PKey = this._activatedRoute.snapshot.queryParams["qsNote_PKey"];
 
       if (this.addEdit == AddEditEnum.Edit)
         this.getNoteInfo();
@@ -113,8 +119,6 @@ export class AddEditNoteComponent implements AfterViewInit {
         this.addNote();
       else
         this.editNote();
-
-        this.navigateToDashboard();
     }
   }
 
@@ -123,21 +127,39 @@ export class AddEditNoteComponent implements AfterViewInit {
   //#region Service Functions
 
   private getNoteInfo(): void {
-    let noteInfo: NotesDto = this._notesService
-      .getNoteInfo(this._note_PKey);
+    this._notesService
+      .getNoteInfo(this._notes_PKey)
+      .subscribe(response => {
+        if(response?.Status == SuccessFailedEnum.SUCCESS)
+          this.initializeFormGroupValue(response?.Data);
+        else {
+          alert("Failed to get data. "+response?.Message);
+          this.navigateToDashboard();
+        }
+      });
 
-    if (noteInfo)
-      this.initializeFormGroupValue(noteInfo);
   }
 
   private addNote(): void {
     this._notesService
-      .addNote(this.formGroup.getRawValue());
+      .addNote(this._appSettings.Cnct_PKey, this.formGroup.getRawValue())
+      .subscribe(response => {
+        if(response?.Status == SuccessFailedEnum.SUCCESS)
+          this.navigateToDashboard();
+        else
+          alert("Failed to add note. "+response?.Message);
+      });
   }
 
   private editNote(): void {
     this._notesService
-      .editNote(this.formGroup.getRawValue());      
+    .updateNote(this.formGroup.get("Notes_PKey").value, this.formGroup.getRawValue())
+    .subscribe(response => {
+      if(response?.Status == SuccessFailedEnum.SUCCESS)
+        this.navigateToDashboard();
+      else
+        alert("Failed to update note. "+response?.Message);
+    });
   }
 
   //#endregion

@@ -1,0 +1,14 @@
+<div class="d-flex justify-content-between fw-bold fst-italic">
+
+    <div>
+        Welcome, {{appSettings.FirstName }} {{appSettings.LastName}}
+    </div>
+
+    <button
+        mat-button
+        title="Logout"
+        class="btn-logout"
+        (click)="onLogoutClick()">        
+        Logout
+    </button>
+</div>
