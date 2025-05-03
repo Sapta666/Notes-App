@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory>
+  <!-- Connection Configurations -->
+  <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+  <property name="hibernate.connection.username">notesadmin</property>
+  <property name="hibernate.connection.password">notesadmin_notesapppdb</property>
+  <property name="hibernate.connection.url">jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=172.17.0.1)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=notes_app)))</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
+
+  <!-- Other Configurations -->
+  <property name="hibernate.hbm2ddl.auto">none</property>
+  <property name="show_sql">true</property>  
+  
+  <!-- ANNOTED CLASSES -->
+  <mapping class="com.sapta.portfolio.apps.notes.app.models.common.db.UsersDBDto"/>
+  <mapping class="com.sapta.portfolio.apps.notes.app.models.common.db.NotesDBDto"/> 
+
+ </session-factory>
+</hibernate-configuration>
