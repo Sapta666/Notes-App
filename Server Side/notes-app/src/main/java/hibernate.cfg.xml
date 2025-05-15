@@ -15,7 +15,7 @@
   <property name="show_sql">true</property>  
   
   <!-- ANNOTED CLASSES -->
-  <mapping class="com.sapta.portfolio.apps.notes.app.models.common.db.UserDBDto"/>
+  <mapping class="com.sapta.portfolio.apps.notes.app.models.common.db.UsersDBDto"/>
   <mapping class="com.sapta.portfolio.apps.notes.app.models.common.db.NotesDBDto"/> 
 
  </session-factory>
