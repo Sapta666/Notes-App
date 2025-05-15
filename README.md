@@ -2,6 +2,8 @@
 
 Application built with Angular 15+ is a web-based tool for creating, managing, and organizing notes. 
 
+Url: http://sapta.notes.app.s3-website-us-east-1.amazonaws.com/Dashboard
+
 # Key features typically include:
 Create, Read, Update, and Delete (CRUD) Notes
 
@@ -13,4 +15,8 @@ Create, Read, Update, and Delete (CRUD) Notes
   Lombok (to reduce boilder plate code)
 
   Database -> Oracle 19c DBMS ( implemented using a docker container )
+
+  Cloud Services: AWS: EC2, S3(for hosting),AWS-RDBMS
+
+  Web Server: Apache Tomcat 11.0.0
   
